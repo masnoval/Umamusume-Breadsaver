@@ -1,2 +1,1 @@
-<!-- UC-09 Pesan Produk -->
-    
+<?php require __DIR__.'/../layouts/header.php'; ?><section class="form-card"><h1>Pesan Produk</h1><div class="order-product"><h2><?=htmlspecialchars($produk['nama_produk'])?></h2><p><?=htmlspecialchars($produk['kategori'])?></p><strong>Rp <?=number_format($produk['harga_diskon'],0,',','.')?></strong><p>Stok tersedia: <?=$produk['stok']?></p></div><form method="post"><label>Jumlah<input type="number" name="jumlah" min="1" max="<?=$produk['stok']?>" value="1" required></label><button class="btn">Buat Pesanan</button></form></section><?php require __DIR__.'/../layouts/footer.php';?>
