@@ -3,6 +3,7 @@ $flash = consume_flash();
 ?>
 <!doctype html>
 <html lang="id">
+
 <head>
     <meta charset="utf-8">
 
@@ -16,6 +17,14 @@ $flash = consume_flash();
         - BreadSaver
     </title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Niconne&family=Open+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
     <link
         rel="stylesheet"
         href="<?= base_url('/public/css/style.css') ?>"
@@ -24,89 +33,136 @@ $flash = consume_flash();
 
 <body>
 
-<header class="topbar">
+<header class="site-header">
 
-    <a
-        class="brand"
-        href="<?= base_url('/') ?>"
-    >
-        🍞 BreadSaver
-    </a>
+    <div class="header-top">
 
-    <nav>
+        <div class="container">
 
-        <a href="<?= base_url('/') ?>">
-            Katalog
-        </a>
-
-        <?php if (current_user()): ?>
-
-            <?php if (
-                current_user()['type'] === 'customer'
-            ): ?>
-
-                <a href="<?= base_url('/pesanan') ?>">
-                    Pesanan
-                </a>
-
-                <span class="user">
-                    👤
-                    <?= htmlspecialchars(
-                        current_user()['nama']
-                    ) ?>
-                </span>
+            <div class="site-branding">
 
                 <a
-                    class="btn small"
-                    href="<?= base_url('/logout') ?>"
+                    href="<?= base_url('/') ?>"
+                    class="site-title"
                 >
-                    Keluar
+                    BreadSaver
                 </a>
 
-            <?php else: ?>
+                <p class="site-description">
+                    Selamatkan roti, hemat biaya.
+                </p>
 
-                <a href="<?= base_url('/produk') ?>">
-                    Kelola Produk
-                </a>
+            </div>
 
-                <a href="<?= base_url('/pesanan') ?>">
-                    Pesanan
-                </a>
+        </div>
 
-                <a href="<?= base_url('/laporan') ?>">
-                    Laporan
-                </a>
+    </div>
 
-                <span class="user">
-                    👤
-                    <?= htmlspecialchars(
-                        current_user()['nama']
-                    ) ?>
-                </span>
+    <nav class="main-navigation">
+
+        <div class="container">
+
+            <div class="nav-inner">
 
                 <a
-                    class="btn small"
-                    href="<?= base_url('/logout') ?>"
+                    href="<?= base_url('/') ?>"
+                    class="nav-link"
                 >
-                    Keluar
+                    HOME
                 </a>
 
-            <?php endif; ?>
+                <a
+                    href="<?= base_url('/katalog') ?>"
+                    class="nav-link"
+                >
+                    KATALOG
+                </a>
 
-        <?php else: ?>
+                <a
+                    href="<?= base_url('/') ?>#tentang"
+                    class="nav-link"
+                >
+                    TENTANG
+                </a>
 
-            <a href="<?= base_url('/login') ?>">
-                Login
-            </a>
+                <?php if (current_user()): ?>
 
-            <a
-                class="btn small"
-                href="<?= base_url('/register') ?>"
-            >
-                Daftar
-            </a>
+                    <a
+                        href="<?= base_url('/pesanan') ?>"
+                        class="nav-link"
+                    >
+                        PESANAN
+                    </a>
 
-        <?php endif; ?>
+                    <?php if (
+                        current_user()['type'] === 'staff'
+                    ): ?>
+
+                        <a
+                            href="<?= base_url('/produk') ?>"
+                            class="nav-link"
+                        >
+                            PRODUK
+                        </a>
+
+                        <a
+                            href="<?= base_url('/laporan') ?>"
+                            class="nav-link"
+                        >
+                            LAPORAN
+                        </a>
+
+                    <?php endif; ?>
+
+                <?php endif; ?>
+
+                <a
+                    href="<?= base_url('/') ?>#produk"
+                    class="nav-link"
+                >
+                    PRODUK PILIHAN
+                </a>
+
+                <a
+                    href="<?= base_url('/') ?>#kontak"
+                    class="nav-link"
+                >
+                    KONTAK
+                </a>
+
+                <div class="nav-account">
+
+                    <?php if (current_user()): ?>
+
+                        <span class="nav-user">
+                            <?= htmlspecialchars(
+                                current_user()['nama']
+                            ) ?>
+                        </span>
+
+                        <a
+                            href="<?= base_url('/logout') ?>"
+                            class="nav-link nav-login"
+                        >
+                            KELUAR
+                        </a>
+
+                    <?php else: ?>
+
+                        <a
+                            href="<?= base_url('/login') ?>"
+                            class="nav-link nav-login"
+                        >
+                            LOGIN
+                        </a>
+
+                    <?php endif; ?>
+
+                </div>
+
+            </div>
+
+        </div>
 
     </nav>
 
@@ -114,20 +170,24 @@ $flash = consume_flash();
 
 <?php if (!empty($flash)): ?>
 
-    <main class="container flash-container">
+    <div class="flash-area">
 
-        <?php foreach ($flash as $type => $messages): ?>
+        <div class="container">
 
-            <?php foreach ((array)$messages as $message): ?>
+            <?php foreach ($flash as $type => $messages): ?>
 
-                <div class="alert <?= htmlspecialchars($type) ?>">
-                    <?= htmlspecialchars($message) ?>
-                </div>
+                <?php foreach ((array)$messages as $message): ?>
+
+                    <div class="alert <?= htmlspecialchars($type) ?>">
+                        <?= htmlspecialchars($message) ?>
+                    </div>
+
+                <?php endforeach; ?>
 
             <?php endforeach; ?>
 
-        <?php endforeach; ?>
+        </div>
 
-    </main>
+    </div>
 
 <?php endif; ?>
